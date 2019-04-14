@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>菜单项</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style type="text/css">
+        .bt-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bt-nav-item {
+            display: block;
+            margin: 2px 0;
+        }
+
+        .bt-nav-item > a {
+            display: block;
+            padding: 5px 25px 5px 8px;
+            border-radius: 4px;
+            line-height: 1.5em;
+            font-size: 1em;
+            color: #337ab7;
+            text-decoration: none;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .bt-nav-item > a:hover {
+            text-decoration: none;
+            background-color: #eee;
+        }
+
+        .bt-nav-item > a:hover {
+            color: #23527c;
+        }
+
+        .bt-nav-item.bt-active > a {
+            color: #fff;
+            background-color: #337ab7;
+        }
+    </style>
+</head>
+<body>
+<ul class="bt-nav">
+    <div id="dynServList">
+    </div>
+</ul>
+<script src="menu.js"></script>
+</body>
+</html>
