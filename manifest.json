@@ -27,6 +27,7 @@
     "webNavigation",
     "management",
     "cookies",
+    "storage",
     //插件图标右键菜单权限
     "<all_urls>"
   ],
