@@ -4,7 +4,7 @@
     let startTime = Date.parse(new Date());
     // await new Promise(resolve => setTimeout(resolve, 500));//先睡500秒
     let idx = 0;
-    for (idx = 1; idx < 10; idx++) {
+    for (idx = 1; idx < 1000*10; idx++) {
         if (glbResult) {
             break;
         }
@@ -15,7 +15,7 @@
                 glbResult = glbResult ? glbResult : result;
             });
         }
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 1));
     }
     let endTime = Date.parse(new Date());
     // console.log('收到结果:' + glbResult);

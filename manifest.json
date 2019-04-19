@@ -28,6 +28,7 @@
     "management",
     "cookies",
     "storage",
+    "debugger",
     //插件图标右键菜单权限
     "<all_urls>"
   ],
@@ -38,7 +39,7 @@
       "matches": [
         "*://*/*"
       ],
-      "run_at": "document_end",//document_idle,document_start,document_end
+      "run_at": "document_start",//document_idle,document_start,document_end
       "js": [
         "buster.js"
       ],
