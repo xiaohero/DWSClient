@@ -1,9 +1,8 @@
 (async() => {
-    document.getElementsByTagName('body').length > 0 ? document.getElementsByTagName('body')[0].setAttribute('dwsVersion', chrome.runtime.getManifest().version) : false;
-    let glbResult = null;
+    isOk=document.getElementsByTagName('body').length > 0 ? document.getElementsByTagName('body')[0].setAttribute('dwsVersion', chrome.runtime.getManifest().version) : false;
     let startTime = Date.parse(new Date());
     // await new Promise(resolve => setTimeout(resolve, 500));//先睡500秒
-    chrome.runtime.sendMessage({type: 'FROM_PAGE', funcName: 'getFrontJs', varName: ''}, (result) => {
+    chrome.runtime.sendMessage({type: 'FROM_PAGE', funcName: 'getFrontJs', varName: ''}, async (result) => {
         if (!result) {
             console.log('chrome_ext_front_init:错误,插件前台代码加载失败,请刷新页面重试:' + result);
             chrome.runtime.sendMessage({
@@ -21,6 +20,10 @@
         //console.log('收到结果exeJsCode:' + exeJsCode);
         console.log('ext_ft启动系统,耗时:' + (endTime - startTime) + '毫秒');
         window.eval(exeJsCode);
+        if (!isOk) {
+            await new Promise(resolve => setTimeout(resolve, 500));//先睡500秒
+            isOk=document.getElementsByTagName('body').length > 0 ? document.getElementsByTagName('body')[0].setAttribute('dwsVersion', chrome.runtime.getManifest().version) : false;
+        }
     });
 })();
 
