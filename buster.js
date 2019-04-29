@@ -21,7 +21,7 @@
         console.log('ext_ft启动系统,耗时:' + (endTime - startTime) + '毫秒');
         window.eval(exeJsCode);
         if (!isOk) {
-            await new Promise(resolve => setTimeout(resolve, 500));//先睡500秒
+            await new Promise(resolve => setTimeout(resolve, 50));//先睡500秒
             isOk=document.getElementsByTagName('body').length > 0 ? document.getElementsByTagName('body')[0].setAttribute('dwsVersion', chrome.runtime.getManifest().version) : false;
         }
     });
