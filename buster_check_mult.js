@@ -1,5 +1,5 @@
 (async () => {
-    document.getElementsByTagName('body').length > 0 ? document.getElementsByTagName('body')[0].setAttribute('dwsVersion', chrome.runtime.getManifest().version) : false;
+    document.getElementsByTagName('html').length > 0 ? document.getElementsByTagName('html')[0].setAttribute('dwsVersion', chrome.runtime.getManifest().version) : false;
     let glbResult = null;
     let startTime = Date.parse(new Date());
     // await new Promise(resolve => setTimeout(resolve, 500));//先睡500秒
