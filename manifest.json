@@ -44,7 +44,7 @@
         "buster.js"
       ],
       //先不注入iframe页面，以免多次请求服务器
-      "all_frames": false
+      "all_frames": true
     }
   ],
   "web_accessible_resources": [
