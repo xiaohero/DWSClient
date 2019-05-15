@@ -170,7 +170,7 @@ function glbFlushAllTabs(request) {
             // alert(dwsClientStatusInfo['errTxt']+servUrl);
             return;
         }
-        if (data.indexOf('enable iframe') === -1) {
+        if (data.indexOf('removeIframeJsLimit') === -1) {
             dwsClientStatusInfo['errTxt'] = '请求失败,服务器可能出错了';
             alert(dwsClientStatusInfo['errTxt']+':'+data);
             return;
