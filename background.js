@@ -163,7 +163,7 @@ function glbFlushAllTabs(request) {
         return;
     }
     servUrl += dwsServWsPath;
-    // alert('服务器地址:' + servUrl + ',代号:' + getCurServInfo()[2]);
+    //alert('服务器地址:' + servUrl + ',代号:' + getCurServInfo()[2]);
     ajaxUtil.get(servUrl, {}, function (data) {
         if (!data) {
             dwsClientStatusInfo['errTxt'] = '请求失败,服务器可能已关闭';
