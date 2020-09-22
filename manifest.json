@@ -1,9 +1,9 @@
 {
-  "name": "SP采集器",
+  "name": "DWS客户端",
   "version": "1.0",
   //支持非iframe刷新重载
   "manifest_version": 2,
-  "description": "SP采集器",
+  "description": "DWS客户端",
   "homepage_url": "http://www.xxx.com",
   "background": {
     "scripts": [
@@ -12,7 +12,7 @@
   },
   "browser_action": {
     "default_icon": "icon128_128.jpg",
-    "default_title": "SP采集器V1.0",
+    "default_title": "DWS客户端-V1.0",
     "default_popup": "popup/menu.html"
   },
   "icons": {
