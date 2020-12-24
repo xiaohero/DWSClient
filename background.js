@@ -1,6 +1,6 @@
 //注意:这里要let级别的变量其它页面无法通过chrome.extension.getBackgroundPage()获取到
 var servUrlList = {
-    servOnline1: ['http://116.196.76.53:8000', '切换服务器1', 'servOnline1'],
+    servOnline1: ['http://47.116.26.253:8000', '切换服务器1', 'servOnline1'],
     // servOnline2: ['', '切换服务器2', 'servOnline2'],
     // servOnline3: ['', '切换U服务器2', 'servOnline3'],
     servCLOSE: ['0', '停止运行', ''],
