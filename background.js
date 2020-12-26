@@ -44,7 +44,7 @@ class AjaxUtil {
         return xhr;
     }
 
-    send(url, callback, method, data, async) {
+    send(url, callback, method, data, async=true) {
         if (async === undefined) {
             async = true;
         }
@@ -62,7 +62,7 @@ class AjaxUtil {
         x.send(data);
     };
 
-    get(url, data, callback, async) {
+    get(url, data, callback, async=true) {
         var query = [];
         for (var key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
@@ -71,7 +71,7 @@ class AjaxUtil {
         this.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, async);
     };
 
-    post(url, data, callback, async) {
+    post(url, data, callback, async=true) {
         var query = [];
         for (var key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
@@ -100,6 +100,9 @@ function getCurServInfo() {
 }
 
 function createToolContextMenus() {
+    if('undefined'==typeof chrome.contextMenus){
+        return false;
+    }
     chrome.contextMenus.removeAll();
     chrome.contextMenus.create({
         id: 'flushAllTabs',
