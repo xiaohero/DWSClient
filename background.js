@@ -7,11 +7,12 @@ var servUrlList = {
     servLOCAL: ['http://127.0.0.1:8000', '切换本地服务器', ''],
 
 };
-var dwsClientStatusInfo = {errTxt:'未启动'};
+var dwsClientStatusInfo = {errTxt: '未启动'};
 //////////////////////////////配置参数/////
-var dwsServPrjName='DJSPZ';
-var dwsServWsPath= '/'+dwsServPrjName+'/Res/getDwsChromeExtJs?version=latest';
-var dwsServerHomePath= '/'+dwsServPrjName+'/Home/index';
+var dwsServPrjName = 'DJSPZ';
+var dwsServWsPath = '/' + dwsServPrjName + '/Res/getDwsChromeExtJs?version=latest';
+var dwsServerHomePath = '/' + dwsServPrjName + '/Home/index';
+
 //////////////////////////////////////////
 
 /**Ajax辅助类(不依赖jquery)**/
@@ -99,6 +100,7 @@ function getCurServInfo() {
 }
 
 function createToolContextMenus() {
+    chrome.contextMenus.removeAll();
     chrome.contextMenus.create({
         id: 'flushAllTabs',
         type: 'normal',
@@ -130,14 +132,14 @@ function glbFlushAllTabs(request) {
     //chrome.tabs.getAllInWindow函数已过时
     chrome.tabs.query({}, async (tabs) => {
         for (let i in tabs) {
-            if ('undefined'!=typeof request&&request.notTabId && request.notTabId == tabs[i].id) {
+            if ('undefined' != typeof request && request.notTabId && request.notTabId == tabs[i].id) {
                 // alert('跳过当前tab页刷新:'+tabs[i].title);
                 continue;
             }
-            'undefined'!=typeof request&&request.alertDebug ? alert('刷新页面:' + tabs[i].url + ',infos:' + JSON.stringify(tabs[i])) : false;//fixme:tabs[i]这里面也许可以找到死机页面
+            'undefined' != typeof request && request.alertDebug ? alert('刷新页面:' + tabs[i].url + ',infos:' + JSON.stringify(tabs[i])) : false;//fixme:tabs[i]这里面也许可以找到死机页面
             //刷新页面
             chrome.tabs.update(tabs[i].id, {url: tabs[i].url, selected: tabs[i].selected});
-            'undefined'!=typeof request&&request.gapMs ? await new Promise(resolve => setTimeout(resolve, request.gapMs)) : false;
+            'undefined' != typeof request && request.gapMs ? await new Promise(resolve => setTimeout(resolve, request.gapMs)) : false;
         }
     });
     return true;
@@ -145,7 +147,7 @@ function glbFlushAllTabs(request) {
 
 
 ///////////////////////////////////////////////////////////////
-(() => {
+window.onload=() => {
     //创建初始菜单
     createToolContextMenus();
     //默认设置1区
@@ -182,4 +184,4 @@ function glbFlushAllTabs(request) {
     });
 
 
-})();
+};
