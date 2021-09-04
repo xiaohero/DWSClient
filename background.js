@@ -10,7 +10,7 @@ var servUrlList = {
 var dwsClientStatusInfo = {errTxt: '未启动'};
 //////////////////////////////配置参数/////
 var dwsServPrjName = 'DJSPZ';
-var dwsServWsPath = '/' + dwsServPrjName + '/Res/getDwsChromeExtJs?version=latest';
+var dwsServWsPath = '/' + dwsServPrjName + '/DwsRes/getDwsChromeExtJs?version=latest';
 var dwsServerHomePath = '/' + dwsServPrjName + '/Home/index';
 
 //////////////////////////////////////////
