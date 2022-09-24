@@ -1,4 +1,4 @@
-# DWSClient 通用谷歌浏览器插件框架
+# DWSClient (一个通用谷歌浏览器插件框架)
 
 #### 介绍
 * DWSClient是一个Chrome Extension谷歌浏览器插件的通用框架.
