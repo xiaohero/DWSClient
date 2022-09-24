@@ -1,6 +1,6 @@
-# DWSClient (一个通用谷歌浏览器插件框架)
+# DWSClient（[English introduction](https://github.com/xiaohero/DWSClient/blob/master/README.en.md)） (一个通用谷歌浏览器插件框架)
 
-#### 介绍（[English introduction](https://github.com/xiaohero/DWSClient/blob/master/README.en.md)）
+#### 介绍
 * DWSClient是一个谷歌浏览器扩展的通用框架.
  * 注意此框架仅是一个空壳,需搭配服务器端框架[DWSFramework](https://github.com/xiaohero/DWSFramework)(基于python django)一起使用,核心js代码从服务器拉取(保护代码安全),前端浏览器通过eval函数执行.
  * 支持websocket实时通信，https转换为http，禁用服务器端iframe保护.
