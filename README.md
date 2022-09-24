@@ -20,7 +20,7 @@
 
 #### 安装及使用教程
 
-1. 拉取最新代码: git pull https://github.com/xiaohero/DWSClient
+1. git pull 拉取最新代码
 2. 讲下载的插件目录拖入到谷歌浏览器的扩展中心
 3. 点击右上角DWSClient插件，选择服务器线路地址，然后开始使用
 
