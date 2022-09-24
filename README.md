@@ -13,7 +13,7 @@
 
 #### 软件架构及原理
 * DWSClient是一个通用的Chrome Extension谷歌浏览器插件框架,此项目只是一个空壳，其核心代码通过插件启动时候，从服务器[DWSFramework](https://github.com/xiaohero/DWSFramework)获取js(代码经过高强度加密与混淆)，保护插件代码的安全性.
-* DWSClient启动后,可在菜单里选择服务器地址,然后从服务器拉取最新的js核心代码，前端通过eval执行拉取的js代码。前端与服务器保持websocket实时通信。
+* DWSClient启动后,可在菜单里选择服务器地址,然后从服务器拉取最新的js核心代码，前端通过eval执行拉取的js代码。
 * DWSClient与服务器保持websocket实时通信，服务器可以实时下发js让前端执行.同时支持前端暴露api给第三方网站调用background js.
 * 支持支持https转http，支持去服务端iframe保护，支持http request,http response head,body等截取。
 
