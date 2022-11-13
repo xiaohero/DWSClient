@@ -38,6 +38,54 @@
         "message": "Flush other tabs",
         "description": ""
     },
+    "gotoDwsHomePage": {
+        "message": "Go to Extension home page",
+        "description": ""
+    },
+    "reOpenAllPages": {
+        "message": "Re-open all pages",
+        "description": ""
+    },
+    "checkWsStatus": {
+        "message": "Check server status",
+        "description": ""
+    },
+    "switchBgDebug": {
+        "message": "Switch Debug Model",
+        "description": ""
+    },
+    "enableHttpstoHttp": {
+        "message": "Enable https-to-http",
+        "description": ""
+    },
+    "disableHttpstoHttp": {
+        "message": "Disable https-to-http",
+        "description": ""
+    },
+    "wsStatusNotInited": {
+        "message": "Not Inited",
+        "description": ""
+    },
+    "wsStatusNotStarted": {
+        "message": "Not Started",
+        "description": ""
+    },
+    "wsStatusConnecting": {
+        "message": "Connecting",
+        "description": ""
+    },
+    "wsStatusOpen": {
+        "message": "Connected",
+        "description": ""
+    },
+    "wsStatusClosing": {
+        "message": "Closing",
+        "description": ""
+    },
+    "wsStatusClosed": {
+        "message": "Closed",
+        "description": ""
+    },
     "runningStatus": {
         "message": "Running status",
         "description": ""

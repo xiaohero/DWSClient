@@ -2,7 +2,7 @@
     "appName": {
         "message": "DWSC客户端"
     },
-    "swichServer": {
+    "switchServer": {
         "message": "切换服务器",
         "description": ""
     },
@@ -36,6 +36,54 @@
     },
     "flushOtherTabs": {
         "message": "刷新其它页面",
+        "description": ""
+    },
+    "gotoDwsHomePage": {
+        "message": "进入插件官网",
+        "description": ""
+    },
+    "reOpenAllPages": {
+        "message": "重开所有页面",
+        "description": ""
+    },
+    "checkWsStatus": {
+        "message": "检测服务器状态",
+        "description": ""
+    },
+    "switchBgDebug": {
+        "message": "切换插件调试模式",
+        "description": ""
+    },
+    "enableHttpstoHttp": {
+        "message": "开启https转http",
+        "description": ""
+    },
+    "disableHttpstoHttp": {
+        "message": "关闭https转http",
+        "description": ""
+    },
+    "wsStatusNotInited": {
+        "message": "未初始化",
+        "description": ""
+    },
+    "wsStatusNotStarted": {
+        "message": "未连接",
+        "description": ""
+    },
+    "wsStatusConnecting": {
+        "message": "连接中",
+        "description": ""
+    },
+    "wsStatusOpen": {
+        "message": "已连接",
+        "description": ""
+    },
+    "wsStatusClosing": {
+        "message": "正在关闭",
+        "description": ""
+    },
+    "wsStatusClosed": {
+        "message": "已关闭",
         "description": ""
     },
     "runningStatus": {
