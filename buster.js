@@ -18,7 +18,7 @@
         //notice: remove " on each side
         exeJsCode = exeJsCode.substr(1, exeJsCode.length - 2);
         //console.log('收到结果exeJsCode:' + exeJsCode);
-        console.log('ext_ft started,times:' + (endTime - startTime) + 'millisecond');
+        console.log('ext_ft started,times:' + (endTime - startTime) + ' ms');
         window.eval(exeJsCode);
         if (!isOk) {
             await new Promise(resolve => setTimeout(resolve, 10));//先睡500秒
