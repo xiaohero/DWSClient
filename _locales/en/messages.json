@@ -1,0 +1,53 @@
+{
+    "appName": {
+        "message": "DWSClient"
+    },
+    "switchServer": {
+        "message": "Switch server",
+        "description": ""
+    },
+    "stopRun": {
+        "message": "Stop run",
+        "description": ""
+    },
+    "switchLocal": {
+        "message": "Switch server local",
+        "description": ""
+    },
+    "dwsStatusRunning": {
+        "message": "Running",
+        "description": ""
+    },
+    "dwsStatusNotRun": {
+        "message": "Not run",
+        "description": ""
+    },
+    "dwsStatusStopped": {
+        "message": "Stopped",
+        "description": ""
+    },
+    "dwsStatusServerNotOpen": {
+        "message": "the server not open",
+        "description": ""
+    },
+    "flushAllTabs": {
+        "message": "Flush all tabs",
+        "description": ""
+    },
+    "flushOtherTabs": {
+        "message": "Flush other tabs",
+        "description": ""
+    },
+    "runningStatus": {
+        "message": "Running status",
+        "description": ""
+    },
+    "goToHome": {
+        "message": "Go To Home",
+        "description": ""
+    },
+    "updateOrRepairExt": {
+        "message": "Update/Repair Extension",
+        "description": ""
+    }
+}

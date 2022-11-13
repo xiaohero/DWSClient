@@ -1,0 +1,53 @@
+{
+    "appName": {
+        "message": "DWSC客户端"
+    },
+    "swichServer": {
+        "message": "切换服务器",
+        "description": ""
+    },
+    "stopRun": {
+        "message": "停止运行",
+        "description": ""
+    },
+    "switchLocal": {
+        "message": "切换本地服务器",
+        "description": ""
+    },
+    "dwsStatusRunning": {
+        "message": "正常",
+        "description": ""
+    },
+    "dwsStatusNotRun": {
+        "message": "未启动",
+        "description": ""
+    },
+    "dwsStatusStopped": {
+        "message": "已停止",
+        "description": ""
+    },
+    "dwsStatusServerNotOpen": {
+        "message": "该服务器尚未开放",
+        "description": ""
+    },
+    "flushAllTabs": {
+        "message": "刷新所有页面",
+        "description": ""
+    },
+    "flushOtherTabs": {
+        "message": "刷新其它页面",
+        "description": ""
+    },
+    "runningStatus": {
+        "message": "运行状态",
+        "description": ""
+    },
+    "goToHome": {
+        "message": "进入主页",
+        "description": ""
+    },
+    "updateOrRepairExt": {
+        "message": "更新(修复)插件",
+        "description": ""
+    }
+}

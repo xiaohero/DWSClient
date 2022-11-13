@@ -1,10 +1,10 @@
 {
-  "name": "DWS客户端",
+  "name": "__MSG_appName__",
   "version": "1.0",
-  //支持非iframe刷新重载
   "manifest_version": 2,
-  "description": "DWS客户端",
-  "homepage_url": "http://www.xxx.com",
+  "default_locale": "en",
+  "description": "__MSG_appName__",
+  "homepage_url": "http://www.dwsframework.com",
   "background": {
     "scripts": [
       "background.js"
@@ -12,12 +12,11 @@
   },
   "browser_action": {
     "default_icon": "icon128_128.jpg",
-    "default_title": "DWS客户端-V1.0",
+    "default_title": "DWSClient-V1.0",
     "default_popup": "popup/menu.html"
   },
   "icons": {
     "16": "icon128_128.jpg"
-    //指定"16"这个配置节点即可让浏览器右键菜单页面显示插件图标
   },
   "permissions": [
     "webRequest",
@@ -29,21 +28,18 @@
     "cookies",
     "storage",
     "debugger",
-    //插件图标右键菜单权限
     "<all_urls>"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  //激活background页面eval函数
   "content_scripts": [
     {
       "matches": [
         "*://*/*"
       ],
-      "run_at": "document_start",//document_idle,document_start,document_end
+      "run_at": "document_start",
       "js": [
         "buster.js"
       ],
-      //先不注入iframe页面，以免多次请求服务器
       "all_frames": true
     }
   ],

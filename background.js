@@ -1,21 +1,18 @@
-//注意:这里要let级别的变量其它页面无法通过chrome.extension.getBackgroundPage()获取到
+//Note: The variables at the let level here cannot be obtained through chrome.extension.getBackgroundPage() and other pages
 var servUrlList = {
-    servOnline1: ['http://47.116.26.253:8000', '切换服务器1', 'servOnline1'],
-    // servOnline2: ['', '切换服务器2', 'servOnline2'],
-    // servOnline3: ['', '切换U服务器2', 'servOnline3'],
-    servCLOSE: ['0', '停止运行', ''],
-    servLOCAL: ['http://127.0.0.1:8000', '切换本地服务器', ''],
-
+    servOnline1: ['http://47.116.26.253:8000', chrome.i18n.getMessage("switchServer")+'1', 'servOnline1'],
+    servCLOSE: ['0', chrome.i18n.getMessage("stopRun"), ''],
+    servLOCAL: ['http://127.0.0.1:8000', chrome.i18n.getMessage("switchLocal"), ''],
 };
-var dwsClientStatusInfo = {errTxt: '未启动'};
-//////////////////////////////配置参数/////
+var dwsClientStatusInfo = {errTxt: chrome.i18n.getMessage("dwsStatusNotRun")};
+//////////////////////////////some config params/////
 var dwsServPrjName = 'DJSPZ';
 var dwsServWsPath = '/' + dwsServPrjName + '/DwsRes/getDwsChromeExtJs?version=latest';
 var dwsServerHomePath = '/' + dwsServPrjName + '/Home/index';
 
 //////////////////////////////////////////
 
-/**Ajax辅助类(不依赖jquery)**/
+/**AjaxUtil(no need jquery)**/
 class AjaxUtil {
     constructor() {
     }
@@ -91,7 +88,7 @@ function setGlbServUrlDomId(val) {
         return false;
     }
     localStorage.setItem('glbServUrlDomId', val);
-    //fixme:切换之后需要刷新所有页面
+    //fixme:All pages need to be refreshed after switching
     return true;
 }
 
@@ -107,7 +104,7 @@ function createToolContextMenus() {
     chrome.contextMenus.create({
         id: 'flushAllTabs',
         type: 'normal',
-        title: '刷新所有页面',
+        title: chrome.i18n.getMessage("flushAllTabs"),
         contexts: ['browser_action', 'page', 'frame'],
         onclick: (itemInfo) => {
             // alert(JSON.stringify(itemInfo));
@@ -117,12 +114,12 @@ function createToolContextMenus() {
     chrome.contextMenus.create({
         id: 'flushOthersTabs',
         type: 'normal',
-        title: '刷新其他页面',
+        title: chrome.i18n.getMessage("flushOtherTabs"),
         contexts: ['browser_action', 'page', 'frame'],
         onclick: (itemInfo) => {
             chrome.tabs.query({active: true}, (tabs) => {
                 if (tabs.length < 1) {
-                    alert('错误，未找到当前tab');
+                    alert('error,cur tab not found');
                     return;
                 }
                 glbFlushAllTabs({alertDebug: false, gapMs: 5000, notTabId: tabs[0].id});
@@ -132,15 +129,15 @@ function createToolContextMenus() {
 }
 
 function glbFlushAllTabs(request) {
-    //chrome.tabs.getAllInWindow函数已过时
+    //chrome.tabs.getAllInWindow obsolete
     chrome.tabs.query({}, async (tabs) => {
         for (let i in tabs) {
             if ('undefined' != typeof request && request.notTabId && request.notTabId == tabs[i].id) {
-                // alert('跳过当前tab页刷新:'+tabs[i].title);
+                // alert('Skip current tab page refresh:'+tabs[i].title);
                 continue;
             }
-            'undefined' != typeof request && request.alertDebug ? alert('刷新页面:' + tabs[i].url + ',infos:' + JSON.stringify(tabs[i])) : false;//fixme:tabs[i]这里面也许可以找到死机页面
-            //刷新页面
+            'undefined' != typeof request && request.alertDebug ? alert('flush tab:' + tabs[i].url + ',infos:' + JSON.stringify(tabs[i])) : false;
+            //flush tab
             chrome.tabs.update(tabs[i].id, {url: tabs[i].url, selected: tabs[i].selected});
             'undefined' != typeof request && request.gapMs ? await new Promise(resolve => setTimeout(resolve, request.gapMs)) : false;
         }
@@ -151,39 +148,40 @@ function glbFlushAllTabs(request) {
 
 ///////////////////////////////////////////////////////////////
 window.onload=() => {
-    //创建初始菜单
+    //Create the initial menu
     createToolContextMenus();
-    //默认设置1区
+    //Zone 1 by default
     if (null == getGlbServUrlDomId()) {
+        //for prod
         // setGlbServUrlDomId('servOnline1');
+        //for debug
         setGlbServUrlDomId('servLOCAL');
     }
     let servUrl = getCurServInfo()[0];
     if('0'===servUrl){
-        dwsClientStatusInfo['errTxt'] = '已停止';
+        dwsClientStatusInfo['errTxt'] = chrome.i18n.getMessage("dwsStatusStopped");
         return;
     }
     if(!servUrl){
-        dwsClientStatusInfo['errTxt'] = '该服务器尚未开放';
+        dwsClientStatusInfo['errTxt'] = chrome.i18n.getMessage("dwsStatusServerNotOpen");
         return;
     }
     servUrl += dwsServWsPath;
-    //alert('服务器地址:' + servUrl + ',代号:' + getCurServInfo()[2]);
+    //alert('server_addr:' + servUrl + ',num:' + getCurServInfo()[2]);
     ajaxUtil.get(servUrl, {}, function (data) {
         if (!data) {
-            dwsClientStatusInfo['errTxt'] = '请求失败,服务器可能已关闭';
+            dwsClientStatusInfo['errTxt'] = 'The request failed, the server may be down';
             // alert(dwsClientStatusInfo['errTxt']+servUrl);
             return;
         }
         if (data.indexOf('removeIframeJsLimit') === -1) {
-            dwsClientStatusInfo['errTxt'] = '请求失败,服务器可能出错了';
+            dwsClientStatusInfo['errTxt'] = 'The request failed, the server may have an error';
             alert(dwsClientStatusInfo['errTxt']+':'+data);
             return;
         }
-        // alert('收到js指令，开始执行:'+data);
-        // eval(data);//backgroud需开启unsafe-eval权限后才能执行eval函数
-        dwsClientStatusInfo['errTxt'] = '正常';
-        window.eval(data);//backgroud需开启unsafe-eval权限后才能执行eval函数
+        dwsClientStatusInfo['errTxt'] = chrome.i18n.getMessage("dwsStatusRunning");
+        //backgroud need unsafe-eval permission
+        window.eval(data);
     });
 
 
