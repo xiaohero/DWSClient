@@ -21,7 +21,7 @@ class AjaxUtil {
         if (typeof XMLHttpRequest !== 'undefined') {
             return new XMLHttpRequest();
         }
-        var versions = [
+        let versions = [
             "MSXML2.XmlHttp.6.0",
             "MSXML2.XmlHttp.5.0",
             "MSXML2.XmlHttp.4.0",
@@ -29,9 +29,8 @@ class AjaxUtil {
             "MSXML2.XmlHttp.2.0",
             "Microsoft.XmlHttp"
         ];
-
-        var xhr;
-        for (var i = 0; i < versions.length; i++) {
+        let xhr;
+        for (let i = 0; i < versions.length; i++) {
             try {
                 xhr = new ActiveXObject(versions[i]);
                 break;
@@ -45,9 +44,10 @@ class AjaxUtil {
         if (async === undefined) {
             async = true;
         }
-        var x = this.x();
+        let x = this.x();
         x.open(method, url, async);
-        // x.withCredentials = true;
+        //set true,auto add cookie in http header
+        //x.withCredentials = true;
         x.onreadystatechange = function () {
             if (x.readyState == 4) {
                 callback(x.responseText)
@@ -60,17 +60,21 @@ class AjaxUtil {
     };
 
     get(url, data, callback, async=true) {
-        var query = [];
-        for (var key in data) {
+        let query = [];
+        data = data || {};
+        callback=callback||(()=>{});
+        for (let key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
         }
-        // query.push('_='+new Date().getTime());//防止缓存
+        // query.push('_='+new Date().getTime());//prevent caching
         this.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, async);
     };
 
     post(url, data, callback, async=true) {
-        var query = [];
-        for (var key in data) {
+        let query = [];
+        data = data || {};
+        callback=callback||(()=>{});
+        for (let key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
         }
         this.send(url, callback, 'POST', query.join('&'), async)
