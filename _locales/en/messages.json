@@ -3,7 +3,7 @@
         "message": "DWSClient"
     },
     "switchServer": {
-        "message": "Switch server",
+        "message": "Server",
         "description": ""
     },
     "stopRun": {
@@ -11,7 +11,7 @@
         "description": ""
     },
     "switchLocal": {
-        "message": "Switch server local",
+        "message": "Local",
         "description": ""
     },
     "dwsStatusRunning": {
@@ -27,7 +27,7 @@
         "description": ""
     },
     "dwsStatusServerNotOpen": {
-        "message": "the server not open",
+        "message": "It's not open",
         "description": ""
     },
     "flushAllTabs": {
@@ -47,7 +47,7 @@
         "description": ""
     },
     "checkWsStatus": {
-        "message": "Check server status",
+        "message": "Check status",
         "description": ""
     },
     "switchBgDebug": {

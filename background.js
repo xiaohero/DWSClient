@@ -100,60 +100,8 @@ function getCurServInfo() {
     return servUrlList[getGlbServUrlDomId()];
 }
 
-function createToolContextMenus() {
-    if('undefined'==typeof chrome.contextMenus){
-        return false;
-    }
-    chrome.contextMenus.removeAll();
-    chrome.contextMenus.create({
-        id: 'flushAllTabs',
-        type: 'normal',
-        title: chrome.i18n.getMessage("flushAllTabs"),
-        contexts: ['browser_action', 'page', 'frame'],
-        onclick: (itemInfo) => {
-            // alert(JSON.stringify(itemInfo));
-            glbFlushAllTabs({alertDebug: false, gapMs: 5000});
-        }
-    });
-    chrome.contextMenus.create({
-        id: 'flushOthersTabs',
-        type: 'normal',
-        title: chrome.i18n.getMessage("flushOtherTabs"),
-        contexts: ['browser_action', 'page', 'frame'],
-        onclick: (itemInfo) => {
-            chrome.tabs.query({active: true}, (tabs) => {
-                if (tabs.length < 1) {
-                    alert('error,cur tab not found');
-                    return;
-                }
-                glbFlushAllTabs({alertDebug: false, gapMs: 5000, notTabId: tabs[0].id});
-            });
-        }
-    });
-}
-
-function glbFlushAllTabs(request) {
-    //chrome.tabs.getAllInWindow obsolete
-    chrome.tabs.query({}, async (tabs) => {
-        for (let i in tabs) {
-            if ('undefined' != typeof request && request.notTabId && request.notTabId == tabs[i].id) {
-                // alert('Skip current tab page refresh:'+tabs[i].title);
-                continue;
-            }
-            'undefined' != typeof request && request.alertDebug ? alert('flush tab:' + tabs[i].url + ',infos:' + JSON.stringify(tabs[i])) : false;
-            //flush tab
-            chrome.tabs.update(tabs[i].id, {url: tabs[i].url, selected: tabs[i].selected});
-            'undefined' != typeof request && request.gapMs ? await new Promise(resolve => setTimeout(resolve, request.gapMs)) : false;
-        }
-    });
-    return true;
-}
-
-
 ///////////////////////////////////////////////////////////////
 window.onload=() => {
-    //Create the initial menu
-    createToolContextMenus();
     //Zone 1 by default
     if (null == getGlbServUrlDomId()) {
         //for prod

@@ -3,7 +3,7 @@
         "message": "DWSC客户端"
     },
     "switchServer": {
-        "message": "切换服务器",
+        "message": "服务器",
         "description": ""
     },
     "stopRun": {
@@ -11,7 +11,7 @@
         "description": ""
     },
     "switchLocal": {
-        "message": "切换本地服务器",
+        "message": "本地主机",
         "description": ""
     },
     "dwsStatusRunning": {
@@ -27,7 +27,7 @@
         "description": ""
     },
     "dwsStatusServerNotOpen": {
-        "message": "该服务器尚未开放",
+        "message": "尚未开放",
         "description": ""
     },
     "flushAllTabs": {
@@ -47,7 +47,7 @@
         "description": ""
     },
     "checkWsStatus": {
-        "message": "检测服务器状态",
+        "message": "检测状态",
         "description": ""
     },
     "switchBgDebug": {

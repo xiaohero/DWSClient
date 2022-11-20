@@ -12,20 +12,23 @@ let winBackgroundPage = chrome.extension.getBackgroundPage();
             innerHtml += '<li class="bt-nav-item" id="' + idx + '"> <a href="#" role="button"> <span class="bt-profile-name">' + winBackgroundPage.servUrlList[idx][1] + '</span> </a> </li>';
         }
     }
-    innerHtml += '<li class="bt-nav-item" id="dwsClientXnbCoins"> <a href="#" role="button"> <span class="bt-profile-name">'+chrome.i18n.getMessage("goToHome")+'</span> </a> </li>';
+    //innerHtml += '<li class="bt-nav-item" id="dwsClientHome"> <a href="#" role="button"> <span class="bt-profile-name">'+chrome.i18n.getMessage("goToHome")+'</span> </a> </li>';
     innerHtml += '<li class="bt-nav-item" id="reloadBtExt"> <a href="#" role="button"> <span class="bt-profile-name">'+chrome.i18n.getMessage("updateOrRepairExt")+'</span> </a> </li>';
     document.getElementById('dynServList').innerHTML = innerHtml;
     //Add the click event after the page is written (note: the popup page cannot directly add the onclick listener event to the html page)
     for (let idx in winBackgroundPage.servUrlList) {
         document.getElementById(idx).addEventListener('click', switchServUrl);
     }
-    document.getElementById('dwsClientXnbCoins').addEventListener('click', dwsClientXnbCoins);
+    //document.getElementById('dwsClientHome').addEventListener('click', dwsClientHome);
+    //'function' == typeof winBackgroundPage.dwsChmExtBg.openClientHome && document.getElementById('dwsClientHome').addEventListener('click', winBackgroundPage.dwsChmExtBg.openClientHome);
     document.getElementById('reloadBtExt').addEventListener('click', reloadByExt);
     // document.getElementById('dwsClientExtStatus').addEventListener('click', dwsClientExtRunStatus);
     document.addEventListener('DOMContentLoaded', function () {
         //Indirectly implement the click listener event of the popup
         document.getElementById('dwsClientExtRunStatus').textContent = '[' + winBackgroundPage.dwsClientStatusInfo['errTxt'] + ']';
     });
+    //append ext-js
+    'undefined' == typeof winBackgroundPage.dwsChmExtBg || 'function' != typeof winBackgroundPage.dwsChmExtBg.getJsToPopUp || window.eval(winBackgroundPage.dwsChmExtBg.getJsToPopUp());
 })();
 
 function clearAllClass() {
@@ -74,7 +77,7 @@ function reloadByExt(channel) {
     localStorage.setItem('dwsClientExtLastReloadTimes', Date.parse(new Date()) / 1000);//Re-record the latest time
 }
 
-function dwsClientXnbCoins() {
+function dwsClientHome() {
     let servUrl = winBackgroundPage.getCurServInfo()[0];
     if('0'==servUrl){
         winBackgroundPage.alert('out of service');
