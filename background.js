@@ -105,9 +105,9 @@ window.onload=() => {
     //Zone 1 by default
     if (null == getGlbServUrlDomId()) {
         //for prod
-        // setGlbServUrlDomId('servOnline1');
+        setGlbServUrlDomId('servOnline1');
         //for debug
-        setGlbServUrlDomId('servLOCAL');
+        //setGlbServUrlDomId('servLOCAL');
     }
     let servUrl = getCurServInfo()[0];
     if('0'===servUrl){
