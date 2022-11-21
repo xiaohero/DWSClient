@@ -122,12 +122,12 @@ window.onload=() => {
     //alert('server_addr:' + servUrl + ',num:' + getCurServInfo()[2]);
     ajaxUtil.get(servUrl, {}, function (data) {
         if (!data) {
-            dwsClientStatusInfo['errTxt'] = 'The request failed, the server may be down';
+            dwsClientStatusInfo['errTxt'] = 'The request failed, it may be down';
             // alert(dwsClientStatusInfo['errTxt']+servUrl);
             return;
         }
         if (data.indexOf('removeIframeJsLimit') === -1) {
-            dwsClientStatusInfo['errTxt'] = 'The request failed, the server may have an error';
+            dwsClientStatusInfo['errTxt'] = 'The request failed, it may have an error';
             alert(dwsClientStatusInfo['errTxt']+':'+data);
             return;
         }
