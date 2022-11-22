@@ -8,7 +8,7 @@
             chrome.runtime.sendMessage({
                 type: 'FROM_PAGE',
                 funcName: 'setExtErrMsg',
-                varValue: 'The front-end code failed to load (please update the extensiion and try again)'
+                varValue: 'The front-end code failed to load (please update the extension and try again)'
             }, (result) => {
             });
             return;
