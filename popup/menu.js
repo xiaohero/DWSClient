@@ -1,9 +1,9 @@
 //The js code cannot be directly embedded in the popup page, it can only be implemented indirectly through js introduction (note that the script is introduced at the end of the body)
 let winBackgroundPage = chrome.extension.getBackgroundPage();
-(() => {
+(async () => {
     //init
-    let innerHtml = '<li class="bt-nav-item" id="dwsClientExtStatus"> <a href="#" role="button">'+chrome.i18n.getMessage("runningStatus")+':<span class="bt-profile-name" id="dwsClientExtRunStatus"></span> </a> </li>';
-    let lastServUrlDomId = winBackgroundPage.getGlbServUrlDomId();
+    let innerHtml = '<li class="bt-nav-item" id="dwsClientExtStatus"> <a href="#" role="button">' + chrome.i18n.getMessage("runningStatus") + ':<span class="bt-profile-name" id="dwsClientExtRunStatus">[' + winBackgroundPage.dwsClientStatusInfo['errTxt'] + ']</span> </a> </li>';
+    let lastServUrlDomId = await winBackgroundPage.getGlbServUrlDomId();
     for (let idx in winBackgroundPage.servUrlList) {
         if (lastServUrlDomId == idx) {
             console.log('load last server:' + lastServUrlDomId);
@@ -13,7 +13,7 @@ let winBackgroundPage = chrome.extension.getBackgroundPage();
         }
     }
     //innerHtml += '<li class="bt-nav-item" id="dwsClientHome"> <a href="#" role="button"> <span class="bt-profile-name">'+chrome.i18n.getMessage("goToHome")+'</span> </a> </li>';
-    innerHtml += '<li class="bt-nav-item" id="reloadBtExt"> <a href="#" role="button"> <span class="bt-profile-name">'+chrome.i18n.getMessage("updateOrRepairExt")+'</span> </a> </li>';
+    innerHtml += '<li class="bt-nav-item" id="reloadBtExt"> <a href="#" role="button"> <span class="bt-profile-name">' + chrome.i18n.getMessage("updateOrRepairExt") + '</span> </a> </li>';
     document.getElementById('dynServList').innerHTML = innerHtml;
     //Add the click event after the page is written (note: the popup page cannot directly add the onclick listener event to the html page)
     for (let idx in winBackgroundPage.servUrlList) {
@@ -22,11 +22,7 @@ let winBackgroundPage = chrome.extension.getBackgroundPage();
     //document.getElementById('dwsClientHome').addEventListener('click', dwsClientHome);
     //'function' == typeof winBackgroundPage.dwsChmExtBg.openClientHome && document.getElementById('dwsClientHome').addEventListener('click', winBackgroundPage.dwsChmExtBg.openClientHome);
     document.getElementById('reloadBtExt').addEventListener('click', reloadByExt);
-    // document.getElementById('dwsClientExtStatus').addEventListener('click', dwsClientExtRunStatus);
-    document.addEventListener('DOMContentLoaded', function () {
-        //Indirectly implement the click listener event of the popup
-        document.getElementById('dwsClientExtRunStatus').textContent = '[' + winBackgroundPage.dwsClientStatusInfo['errTxt'] + ']';
-    });
+    //document.getElementById('dwsClientExtStatus').addEventListener('click', dwsClientExtRunStatus);
     //append ext-js
     'undefined' == typeof winBackgroundPage.dwsChmExtBg || 'function' != typeof winBackgroundPage.dwsChmExtBg.getJsToPopUp || window.eval(winBackgroundPage.dwsChmExtBg.getJsToPopUp());
 })();
@@ -38,11 +34,12 @@ function clearAllClass() {
     }
 }
 
-function switchServUrl() {
+async function switchServUrl() {
     clearAllClass();
     let servUrlDomId = this.getAttribute('id');
     console.log('Currently switched to the server address:' + winBackgroundPage.servUrlList[servUrlDomId][0] + ',id:' + servUrlDomId);
-    if (servUrlDomId == winBackgroundPage.getGlbServUrlDomId()) {
+    let servIdx = await winBackgroundPage.getGlbServUrlDomId();
+    if (servUrlDomId == servIdx) {
         return;
     }
     this.setAttribute('class', 'bt-nav-item bt-active');
@@ -53,22 +50,19 @@ function switchServUrl() {
     reloadByExt('switch');
 }
 
-function reloadByExt(channel) {
-    // if('switch'==channel){
-    //     return;
-    // }
+function reloadByExt() {
     let dwsClientExtLastReloadTimes = localStorage.getItem('dwsClientExtLastReloadTimes');
     let dwsClientExtReloadTimes = localStorage.getItem('dwsClientExtReloadTimes');
-    dwsClientExtLastReloadTimes=dwsClientExtLastReloadTimes?dwsClientExtLastReloadTimes:0;
-    dwsClientExtReloadTimes=dwsClientExtReloadTimes?parseInt(dwsClientExtReloadTimes)+1:1;
+    dwsClientExtLastReloadTimes = dwsClientExtLastReloadTimes ? dwsClientExtLastReloadTimes : 0;
+    dwsClientExtReloadTimes = dwsClientExtReloadTimes ? parseInt(dwsClientExtReloadTimes) + 1 : 1;
     // winBackgroundPage.dwsClientStatusInfo['errTxt']='debug:'+(Date.parse(new Date()) / 1000 - dwsClientExtLastReloadTimes)+':'+dwsClientExtReloadTimes;
-    if(dwsClientExtReloadTimes<4){
+    if (dwsClientExtReloadTimes < 4) {
         chrome.runtime.reload();
         localStorage.setItem('dwsClientExtReloadTimes', dwsClientExtReloadTimes);
         return;
     }
     if (Date.parse(new Date()) / 1000 - dwsClientExtLastReloadTimes < 21) {
-        winBackgroundPage.alert('The operation is too frequent, please wait 20 seconds before clicking:'+(Date.parse(new Date()) / 1000 - dwsClientExtLastReloadTimes)+':'+dwsClientExtReloadTimes);
+        winBackgroundPage.alert('The operation is too frequent, please wait 20 seconds before clicking:' + (Date.parse(new Date()) / 1000 - dwsClientExtLastReloadTimes) + ':' + dwsClientExtReloadTimes);
         // console.log('The operation is too frequent, please wait 20 seconds before clicking:'+(Date.parse(new Date()) / 1000 - dwsClientExtLastReloadTimes)+':'+dwsClientExtReloadTimes);
         return;
     }
@@ -79,11 +73,11 @@ function reloadByExt(channel) {
 
 function dwsClientHome() {
     let servUrl = winBackgroundPage.getCurServInfo()[0];
-    if('0'==servUrl){
+    if ('0' == servUrl) {
         winBackgroundPage.alert('out of service');
         return;
     }
-    if(!servUrl){
+    if (!servUrl) {
         winBackgroundPage.alert('the server is not yet open');
         return;
     }

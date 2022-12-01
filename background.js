@@ -1,6 +1,6 @@
 //Note: The variables at the let level here cannot be obtained through chrome.extension.getBackgroundPage() and other pages
 var servUrlList = {
-    servOnline1: ['http://47.116.26.253:8000', chrome.i18n.getMessage("switchServer")+'1', 'servOnline1'],
+    servOnline1: ['http://47.116.26.253:8000', chrome.i18n.getMessage("switchServer") + '1', 'servOnline1'],
     servCLOSE: ['0', chrome.i18n.getMessage("stopRun"), ''],
     servLOCAL: ['http://127.0.0.1:8000', chrome.i18n.getMessage("switchLocal"), ''],
 };
@@ -9,6 +9,10 @@ var dwsClientStatusInfo = {errTxt: chrome.i18n.getMessage("dwsStatusNotRun")};
 var dwsServPrjName = 'DJSPZ';
 var dwsServWsPath = '/' + dwsServPrjName + '/DwsRes/getDwsChromeExtJs?version=latest';
 var dwsServerHomePath = '/' + dwsServPrjName + '/Home/index';
+//Compatible with v3 version
+window = 'undefined' == typeof window ? self : window;
+//Current selected index
+var glbServIdx = "";
 
 //////////////////////////////////////////
 
@@ -40,7 +44,7 @@ class AjaxUtil {
         return xhr;
     }
 
-    send(url, callback, method, data, async=true) {
+    send(url, callback, method, data, async = true) {
         if (async === undefined) {
             async = true;
         }
@@ -59,10 +63,11 @@ class AjaxUtil {
         x.send(data);
     };
 
-    get(url, data, callback, async=true) {
+    get(url, data, callback, async = true) {
         let query = [];
         data = data || {};
-        callback=callback||(()=>{});
+        callback = callback || (() => {
+        });
         for (let key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
         }
@@ -70,51 +75,58 @@ class AjaxUtil {
         this.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, async);
     };
 
-    post(url, data, callback, async=true) {
+    post(url, data, callback, async = true) {
         let query = [];
         data = data || {};
-        callback=callback||(()=>{});
+        callback = callback || (() => {
+        });
         for (let key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
         }
         this.send(url, callback, 'POST', query.join('&'), async)
     };
-};
+}
+
 ajaxUtil = new AjaxUtil();
 
-function getGlbServUrlDomId() {
-    return localStorage.getItem('glbServUrlDomId');
+async function getGlbServUrlDomId() {
+    return new Promise(resolve => {
+        chrome.storage.local.get(["glbServUrlDomId"], (result) => {
+            resolve(glbServIdx = result['glbServUrlDomId']);
+        });
+    });
 }
 
 function setGlbServUrlDomId(val) {
-    let preServUrlDomId = getGlbServUrlDomId();
-    if (val == preServUrlDomId) {
+    if (val == glbServIdx) {
         return false;
     }
-    localStorage.setItem('glbServUrlDomId', val);
+    chrome.storage.local.set({'glbServUrlDomId': (glbServIdx = val)});
     //fixme:All pages need to be refreshed after switching
     return true;
 }
 
 function getCurServInfo() {
-    return servUrlList[getGlbServUrlDomId()];
+    //let glbServIdx = await getGlbServUrlDomId();
+    return servUrlList[glbServIdx];
 }
 
 ///////////////////////////////////////////////////////////////
-window.onload=() => {
+window.onload = async () => {
     //Zone 1 by default
-    if (null == getGlbServUrlDomId()) {
+    let curServIdx = await getGlbServUrlDomId();
+    if (null == curServIdx || 'undefined' == typeof curServIdx) {
         //for prod
         setGlbServUrlDomId('servOnline1');
         //for debug
         //setGlbServUrlDomId('servLOCAL');
     }
     let servUrl = getCurServInfo()[0];
-    if('0'===servUrl){
+    if ('0' === servUrl) {
         dwsClientStatusInfo['errTxt'] = chrome.i18n.getMessage("dwsStatusStopped");
         return;
     }
-    if(!servUrl){
+    if (!servUrl) {
         dwsClientStatusInfo['errTxt'] = chrome.i18n.getMessage("dwsStatusServerNotOpen");
         return;
     }
