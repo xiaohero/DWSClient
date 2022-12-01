@@ -1,4 +1,4 @@
-# DWSClient（[English introduction](https://github.com/xiaohero/DWSClient/blob/master/README.en.md)） (一个通用谷歌浏览器插件框架)
+# DWSClient (一个通用谷歌浏览器插件框架)
 
 #### 介绍
 * DWSClient是一个谷歌浏览器扩展的通用框架.
