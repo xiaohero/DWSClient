@@ -90,6 +90,7 @@ class AjaxUtil {
 ajaxUtil = new AjaxUtil();
 
 async function getGlbServUrlDomId() {
+    //return localStorage.getItem('glbServUrlDomId');
     return new Promise(resolve => {
         chrome.storage.local.get(["glbServUrlDomId"], (result) => {
             resolve(glbServIdx = result['glbServUrlDomId']);
@@ -101,6 +102,7 @@ function setGlbServUrlDomId(val) {
     if (val == glbServIdx) {
         return false;
     }
+    //localStorage.setItem('glbServUrlDomId', val);
     chrome.storage.local.set({'glbServUrlDomId': (glbServIdx = val)});
     //fixme:All pages need to be refreshed after switching
     return true;
