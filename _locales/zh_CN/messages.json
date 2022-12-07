@@ -95,7 +95,7 @@
         "description": ""
     },
     "updateOrRepairExt": {
-        "message": "更新(修复)插件",
+        "message": "重置(修复)插件",
         "description": ""
     }
 }

@@ -7,9 +7,9 @@ let winBackgroundPage = chrome.extension.getBackgroundPage();
     for (let idx in winBackgroundPage.servUrlList) {
         if (lastServUrlDomId == idx) {
             console.log('load last server:' + lastServUrlDomId);
-            innerHtml += '<li class="bt-nav-item bt-active" id="' + idx + '"> <a href="#" role="button"> <span class="bt-profile-name">' + winBackgroundPage.servUrlList[idx][1] + '</span> </a> </li>';
+            innerHtml += '<li style="display: none" class="bt-nav-item bt-active" id="' + idx + '"> <a href="#" role="button"> <span class="bt-profile-name">' + winBackgroundPage.servUrlList[idx][1] + '</span> </a> </li>';
         } else {
-            innerHtml += '<li class="bt-nav-item" id="' + idx + '"> <a href="#" role="button"> <span class="bt-profile-name">' + winBackgroundPage.servUrlList[idx][1] + '</span> </a> </li>';
+            innerHtml += '<li style="display: none" class="bt-nav-item" id="' + idx + '"> <a href="#" role="button"> <span class="bt-profile-name">' + winBackgroundPage.servUrlList[idx][1] + '</span> </a> </li>';
         }
     }
     //innerHtml += '<li class="bt-nav-item" id="dwsClientHome"> <a href="#" role="button"> <span class="bt-profile-name">'+chrome.i18n.getMessage("goToHome")+'</span> </a> </li>';

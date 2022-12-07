@@ -95,7 +95,7 @@
         "description": ""
     },
     "updateOrRepairExt": {
-        "message": "Update/Repair Extension",
+        "message": "Reset/Repair Extension",
         "description": ""
     }
 }
