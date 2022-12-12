@@ -7,7 +7,7 @@ var servUrlList = {
 var dwsClientStatusInfo = {errTxt: chrome.i18n.getMessage("dwsStatusNotRun")};
 //////////////////////////////some config params/////
 var dwsServPrjName = 'DJSPZ';
-var dwsServWsPath = '/' + dwsServPrjName + '/DwsRes/getDwsChromeExtJs?version=latest';
+var dwsServWsPath = '/' + dwsServPrjName + '/DwsRes/getDwsChromeExtJs?appName=' + chrome.i18n.getMessage("appName");
 var dwsServerHomePath = '/' + dwsServPrjName + '/Home/index';
 //Compatible with v3 version
 window = 'undefined' == typeof window ? self : window;
