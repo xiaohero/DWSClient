@@ -5,12 +5,6 @@
     chrome.runtime.sendMessage({type: 'FROM_PAGE', funcName: 'getFrontJs', varName: ''}, async (result) => {
         if (!result) {
             console.log('chrome_ext_front_init:Error,the front-end code failed to load, please refresh the page and try again:' + result);
-            chrome.runtime.sendMessage({
-                type: 'FROM_PAGE',
-                funcName: 'setExtErrMsg',
-                varValue: 'The front-end code failed to load (please update the extension and try again)'
-            }, () => {
-            });
             return;
         }
         let endTime = Date.parse(new Date());

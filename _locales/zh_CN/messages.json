@@ -1,6 +1,9 @@
 {
-    "appName": {
+    "appId": {
         "message": "DWSClient"
+    },
+    "appName": {
+        "message": "DWS客户端"
     },
     "switchServer": {
         "message": "服务器",

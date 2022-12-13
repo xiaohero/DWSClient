@@ -1,4 +1,7 @@
 {
+    "appId": {
+        "message": "DWSClient"
+    },
     "appName": {
         "message": "DWSClient"
     },
