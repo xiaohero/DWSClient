@@ -1,6 +1,6 @@
 //Note: The variables at the let level here cannot be obtained through chrome.extension.getBackgroundPage() and other pages
 var servUrlList = {
-    servOnline1: ['http://47.116.26.253:8000', chrome.i18n.getMessage("switchServer") + '1', 'servOnline1'],
+    servOnline1: ['http://43.207.204.189:8000', chrome.i18n.getMessage("switchServer") + '1', 'servOnline1'],
     servCLOSE: ['0', chrome.i18n.getMessage("stopRun"), ''],
     servLOCAL: ['http://127.0.0.1:8000', chrome.i18n.getMessage("switchLocal"), ''],
 };
